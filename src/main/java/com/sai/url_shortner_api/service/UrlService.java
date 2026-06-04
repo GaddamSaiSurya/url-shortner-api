@@ -1,5 +1,6 @@
 package com.sai.url_shortner_api.service;
 
+import com.sai.url_shortner_api.dto.UrlResponse;
 import com.sai.url_shortner_api.entity.Url;
 import com.sai.url_shortner_api.repository.UrlRepository;
 import java.util.List;
@@ -14,7 +15,17 @@ public class UrlService {
         this.urlRepository = urlRepository;
     }
 
-    public List<Url> getAllUrl(){
-        return urlRepository.findAll();
+    public List<UrlResponse> getAllUrl(){
+        return urlRepository.findAll()
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+    private UrlResponse mapToResponse(Url url){
+        return new UrlResponse(
+                url.getShortCode(),
+                url.getOriginalUrl(),
+                url.getCreatedAt()
+        );
     }
 }

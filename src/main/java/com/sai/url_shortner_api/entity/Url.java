@@ -18,17 +18,15 @@ public class Url {
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "url_generator"
+            generator = "url_sequence"
     )
 
     private Long id;
-    @NotNull
+    @Column(nullable = false)
     private String originalUrl;
-    @NotNull
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String shortCode;
-    @NotNull
-    @PastOrPresent
+    @Column(nullable = false)
     private LocalDateTime createdAt;
 
     public Url() {
