@@ -26,4 +26,8 @@ public class UrlService {
     public Url getUrlByShortCode(String shortCode){
         return urlRepository.findByShortCode(shortCode).orElseThrow(() -> new RuntimeException("URL Not Found"));
     }
+
+    public Url saveUrl(Url url){
+        return urlRepository.save(url);
+    }
 }

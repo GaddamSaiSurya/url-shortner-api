@@ -1,10 +1,9 @@
 package com.sai.url_shortner_api.controller;
 
+import com.sai.url_shortner_api.dto.CreateUrlRequest;
 import com.sai.url_shortner_api.entity.Url;
 import com.sai.url_shortner_api.service.UrlService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +24,21 @@ public class UrlController {
     @GetMapping("/urls/{id}")
     public Url getUrlById(@PathVariable Long id){
         return urlService.getUrlById(id);
+    }
+
+    @GetMapping("/urls/code/{shortCode}")
+    public Url getUrlByShortCode(@PathVariable String shortCode){
+        return urlService.getUrlByShortCode(shortCode);
+    }
+
+    @PostMapping("/urls")
+    public Url createUrl(@RequestBody CreateUrlRequest request){
+
+        Url url = new Url(
+                request.getOriginalUrl(),
+                "temp"
+        );
+        return urlService.saveUrl(url);
     }
 
 }
