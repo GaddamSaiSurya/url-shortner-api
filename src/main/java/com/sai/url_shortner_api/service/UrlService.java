@@ -30,12 +30,11 @@ public class UrlService {
         return urlRepository.findByShortCode(shortCode).orElseThrow(() -> new RuntimeException("URL Not Found"));
     }
 
-    public Url saveUrl(Url url){
-        return urlRepository.save(url);
-    }
-
     public Url createUrl(String originalUrl){
-        String shortCode = shortCodeGenerator.generateShortCode();
+        String shortCode;
+        do{
+            shortCode = shortCodeGenerator.generateShortCode();
+        } while(urlRepository.existsByShortCode(shortCode));
         Url url = new Url(originalUrl, shortCode);
         return urlRepository.save(url);
     }

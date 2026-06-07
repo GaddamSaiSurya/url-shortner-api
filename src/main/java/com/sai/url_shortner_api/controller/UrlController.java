@@ -3,6 +3,7 @@ package com.sai.url_shortner_api.controller;
 import com.sai.url_shortner_api.dto.CreateUrlRequest;
 import com.sai.url_shortner_api.entity.Url;
 import com.sai.url_shortner_api.service.UrlService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class UrlController {
     }
 
     @PostMapping("/urls")
-    public Url createUrl(@RequestBody CreateUrlRequest request){
+    public Url createUrl(@Valid @RequestBody CreateUrlRequest request){
         return urlService.createUrl(request.getOriginalUrl());
     }
 
