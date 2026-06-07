@@ -1,4 +1,7 @@
 package com.sai.url_shortner_api.exception;
 
-public class UrlNotFoundException {
+public class UrlNotFoundException extends RuntimeException{
+    public UrlNotFoundException(String message){
+        super(message);
+    }
 }

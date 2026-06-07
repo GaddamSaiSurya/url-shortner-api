@@ -1,6 +1,7 @@
 package com.sai.url_shortner_api.service;
 
 import com.sai.url_shortner_api.entity.Url;
+import com.sai.url_shortner_api.exception.UrlNotFoundException;
 import com.sai.url_shortner_api.repository.UrlRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +24,11 @@ public class UrlService {
     }
 
     public Url getUrlById(Long id){
-        return urlRepository.findById(id).orElseThrow(() -> new RuntimeException("URL Not Found"));
+        return urlRepository.findById(id).orElseThrow(() -> new UrlNotFoundException("URL Not Found"));
     }
 
     public Url getUrlByShortCode(String shortCode){
-        return urlRepository.findByShortCode(shortCode).orElseThrow(() -> new RuntimeException("URL Not Found"));
+        return urlRepository.findByShortCode(shortCode).orElseThrow(() -> new UrlNotFoundException("URL Not Found"));
     }
 
     public Url createUrl(String originalUrl){
