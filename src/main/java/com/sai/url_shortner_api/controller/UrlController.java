@@ -33,12 +33,7 @@ public class UrlController {
 
     @PostMapping("/urls")
     public Url createUrl(@RequestBody CreateUrlRequest request){
-
-        Url url = new Url(
-                request.getOriginalUrl(),
-                "temp"
-        );
-        return urlService.saveUrl(url);
+        return urlService.createUrl(request.getOriginalUrl());
     }
 
 }

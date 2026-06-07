@@ -11,8 +11,11 @@ public class UrlService {
 
     private final UrlRepository urlRepository;
 
-    public UrlService(UrlRepository urlRepository) {
+    private final ShortCodeGenerator shortCodeGenerator;
+
+    public UrlService(UrlRepository urlRepository, ShortCodeGenerator shortCodeGenerator) {
         this.urlRepository = urlRepository;
+        this.shortCodeGenerator = shortCodeGenerator;
     }
 
     public List<Url> getAllUrls(){
@@ -28,6 +31,12 @@ public class UrlService {
     }
 
     public Url saveUrl(Url url){
+        return urlRepository.save(url);
+    }
+
+    public Url createUrl(String originalUrl){
+        String shortCode = shortCodeGenerator.generateShortCode();
+        Url url = new Url(originalUrl, shortCode);
         return urlRepository.save(url);
     }
 }
