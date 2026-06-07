@@ -39,4 +39,9 @@ public class UrlService {
         Url url = new Url(originalUrl, shortCode);
         return urlRepository.save(url);
     }
+
+    public String getOriginalUrl(String shortCode){
+        Url url = getUrlByShortCode(shortCode);
+        return url.getOriginalUrl();
+    }
 }

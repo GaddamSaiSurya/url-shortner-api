@@ -4,8 +4,11 @@ import com.sai.url_shortner_api.dto.CreateUrlRequest;
 import com.sai.url_shortner_api.entity.Url;
 import com.sai.url_shortner_api.service.UrlService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -35,6 +38,15 @@ public class UrlController {
     @PostMapping("/urls")
     public Url createUrl(@Valid @RequestBody CreateUrlRequest request){
         return urlService.createUrl(request.getOriginalUrl());
+    }
+
+    @GetMapping("/{shortCode}")
+    public ResponseEntity<Void> redirect(@PathVariable String shortCode){
+        String originalUrl = urlService.getOriginalUrl(shortCode);
+        return ResponseEntity
+                .status(HttpStatus.FOUND)
+                .location(URI.create(originalUrl))
+                .build();
     }
 
 }
