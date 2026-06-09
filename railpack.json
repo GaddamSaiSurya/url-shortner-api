@@ -1,7 +1,5 @@
 {
-  "$schema": "https://railpack.com/schema.json",
-  "providers": ["java"],
-  "java": {
-    "version": "25"
+  "packages": {
+    "java": "25"
   }
 }
